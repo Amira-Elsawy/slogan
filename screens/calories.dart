@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:slogan_app/models/drawer.dart';
+import 'package:slogan_app/models/models.dart';
 
 class CaloriesCalc extends StatefulWidget {
   const CaloriesCalc({super.key});
@@ -38,6 +40,7 @@ class _MyWidgetState extends State<CaloriesCalc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer:const MyDrawer(),
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text(
@@ -51,175 +54,172 @@ class _MyWidgetState extends State<CaloriesCalc> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextFormField(
-              keyboardType: TextInputType.number,
-              onSaved: (newValue) => _age = newValue!,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your age';
-                }
-                return null;
-              },
-              style: const TextStyle(
-                color: Color(0xFFE3E3E3),
-              ),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+      body: Expanded(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Spacer(flex: 1),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                onSaved: (newValue) => _age = newValue!,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your age';
+                  }
+                  return null;
+                },
+                style: const TextStyle(
+                  color: Color(0xFFE3E3E3),
                 ),
-                labelText: "Age",
-                labelStyle: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              onSaved: (newValue) => _weight = newValue!,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your weight';
-                }
-                return null;
-              },
-              style: const TextStyle(
-                color: Color(0xFFE3E3E3),
-              ),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                labelText: "Weight in Kilograms",
-                labelStyle: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              onSaved: (newValue) => _height = newValue!,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your height';
-                }
-                return null;
-              },
-              style: const TextStyle(
-                color: Color(0xFFE3E3E3),
-              ),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                labelText: "Height in Cm",
-                labelStyle: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedGender = 'Male';
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedGender == 'Male' ? Colors.blue : Colors.white,
-                    foregroundColor: _selectedGender == 'Male' ? Colors.white : Colors.black,
-                    minimumSize: const Size(90, 40),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
-                  child: const Text(
-                    "Male",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  labelText: "Age",
+                  labelStyle: const TextStyle(
+                    color: Colors.white,
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _selectedGender = 'Female';
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _selectedGender == 'Female' ? Colors.pink : Colors.white,
-                    foregroundColor: _selectedGender == 'Female' ? Colors.white : Colors.black,
-                    minimumSize: const Size(90, 40),
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                onSaved: (newValue) => _weight = newValue!,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your weight';
+                  }
+                  return null;
+                },
+                style: const TextStyle(
+                  color: Color(0xFFE3E3E3),
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
-                  child: const Text(
-                    "Female",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  labelText: "Weight in Kilograms",
+                  labelStyle: const TextStyle(
+                    color: Colors.white,
                   ),
                 ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: _calculateCalories,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
               ),
-              child: const Text(
-                "Calculate the calories you needed in a day",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              const Spacer(flex: 1),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                onSaved: (newValue) => _height = newValue!,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your height';
+                  }
+                  return null;
+                },
+                style: const TextStyle(
+                  color: Color(0xFFE3E3E3),
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  labelText: "Height in Cm",
+                  labelStyle: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              const Spacer(flex: 1),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text(
-                    "The Calories you needed are ",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _selectedGender = 'Male';
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          _selectedGender == 'Male' ? Colors.blue : Colors.white,
+                      foregroundColor:
+                          _selectedGender == 'Male' ? Colors.white : Colors.black,
+                      minimumSize: const Size(90, 40),
+                    ),
+                    child: const Text(
+                      "Male",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,
+                      fontFamily: 'SpaceMono',
+                      fontStyle: FontStyle.italic),
+                    ),
                   ),
-                  Text(
-                    "$_result",
-                    style: const TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _selectedGender = 'Female';
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _selectedGender == 'Female'
+                          ? Colors.pink
+                          : Colors.white,
+                      foregroundColor: _selectedGender == 'Female'
+                          ? Colors.white
+                          : Colors.black,
+                      minimumSize: const Size(90, 40),
+                    ),
+                    child: const Text(
+                      "Female",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,
+                      fontFamily: 'SpaceMono',
+                      fontStyle: FontStyle.italic
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 140,
-            ),
-          ],
+              const Spacer(flex: 1),
+              ElevatedButton(
+                onPressed: _calculateCalories,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                ),
+                child: const Text(
+                  "Calculate the calories you needed in a day",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "The Calories you needed are ",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13),
+                    ),
+                    Text(
+                      "$_result",
+                      style: const TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+              const Spacer(flex: 3),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class CalorieCalculator {
-  final num age;
-  final String sex;
-  final num weigthKG;
-  final num height;
-
-  CalorieCalculator({
-    required this.age,
-    required this.sex,
-    required this.weigthKG,
-    required this.height,
-  });
-
-  num calculateBMR() {
-    if (sex == 'Male') {
-      return 10 * weigthKG + 6.25 * height - 5 * age + 5;
-    } else {
-      return 10 * weigthKG + 6.25 * height - 5 * age - 161;
-    }
-  }
-}

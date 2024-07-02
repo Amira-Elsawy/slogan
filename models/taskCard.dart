@@ -10,6 +10,7 @@ class TaskCard extends StatefulWidget {
   TaskCard({
     required this.taskName,
     required this.dateTime,
+
   });
 
   @override
@@ -33,56 +34,62 @@ class _TaskCardState extends State<TaskCard> {
   }
 
   @override
+
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        Container(
+          padding:const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.green,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                widget.taskName,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                   widget.taskName,
+                    style:const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                 const SizedBox(height: 8),
+                  Text(
+                    widget.dateTime,
+                    style:const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 8),
-              Text(
-                widget.dateTime,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
+              GestureDetector(
+                onTap: toggleStatus,
+                child: Container(
+                  padding:const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    status,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: statusColor,
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          GestureDetector(
-            onTap: toggleStatus,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                status,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: statusColor,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+       const Divider(color: Colors.black,)
+      ],
     );
   }
 }

@@ -12,10 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Widget> Pages =[
-    Homescreen(),
-    DialyExercise(),
-    CaloriesCalc(),
+  List<Widget>  pages =[
+   const Homescreen(),
+   const DialyExercise(),
+   const CaloriesCalc(),
   ];
   int index =0;
   late AudioPlayer audioPlayer;
@@ -26,16 +26,16 @@ class _HomePageState extends State<HomePage> {
     playStartupSound();
   }
   void playStartupSound() async {
-    try {
-      await audioPlayer.setAsset('assets/sounds/lovely.mp3');
+    
+      await audioPlayer.setAsset('sounds/lovely.mp3');
       audioPlayer.play();
-    } catch (e) {
-      print("Error loading audio source: $e");
-    }
+      audioPlayer.setVolume(0.05);
+    
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: Colors.green,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         }),),
         body: IndexedStack(
           index: index,
-          children: Pages,),
+          children: pages,),
     );
   }
 }
