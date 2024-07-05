@@ -91,20 +91,36 @@ class _MyWidgetState extends State<Homescreen> {
                           color: Colors.green
             ),
             child: ListView.builder(
-          itemBuilder: (context,int index){
-            return TaskCard(
+             itemCount: exer.length,
+             itemBuilder: (context,int index){
+            return Dismissible(
+              background: Container(
+                color: Colors.red,
+                child:const Center(child:  Text("Delete The Exercise",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold
+                ),)),
+              ),
+              key: ValueKey <String> (exer[index]),
+              onDismissed:( DismissDirection direction){
+                setState(() {
+                  exer.removeAt(index);
+                });
+              },
+               child: 
+             TaskCard(
               taskName: exer[index],
-              dateTime: data[index]);
-          },
-          itemCount: exer.length,
-            )
+              dateTime: data[index])
 
-                ),
-          
-        
-        ] 
+              );
+             }
+              )
+         )
+        ]
       )
-      );
+    );
+      
+  }  
   }
-}
       
